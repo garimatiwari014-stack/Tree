@@ -1,28 +1,28 @@
-public class insertInBST {
-    
+class Node {
+    int data;
+    Node left, right;
 
+    Node(int data) {
+        this.data = data;
+        left = right = null;
+    }
+}
 
-// if present already not modified - gfg based
-
-// Expected Time Complexity: O(Height of the BST).
-
-// Expected Auxiliary Space: O(Height of the BST).
 class Solution {
-    // Function to insert a node in a BST.
+
     Node insert(Node root, int key) {
-        // your code here
 
         if (root == null)
             return new Node(key);
 
-        if (search(root, key) == true)
+        if (search(root, key))
             return root;
 
         Node cur = root;
 
         while (true) {
 
-            if (cur.data <= key) {
+            if (key > cur.data) {
 
                 if (cur.right != null)
                     cur = cur.right;
@@ -30,13 +30,11 @@ class Solution {
                     cur.right = new Node(key);
                     break;
                 }
-            }
 
-            else {
+            } else {
 
                 if (cur.left != null)
                     cur = cur.left;
-
                 else {
                     cur.left = new Node(key);
                     break;
@@ -45,25 +43,19 @@ class Solution {
         }
 
         return root;
-
     }
 
-    boolean search(Node root, int x) {
-        // Your code here
+    boolean search(Node root, int key) {
 
         if (root == null)
             return false;
-        if (root.data == x)
+
+        if (root.data == key)
             return true;
 
-        boolean ans;
-        if (x < root.data)
-            ans = search(root.left, x);
-        else
-            ans = search(root.right, x);
+        if (key < root.data)
+            return search(root.left, key);
 
-        return ans;
-
+        return search(root.right, key);
     }
 }
-    
